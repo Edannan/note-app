@@ -28,7 +28,7 @@ const Newnote = ({addNote}) => {
 				placeholder='Type to add a note...' value={notetext} onChange={handleChange}
 			></textarea>
         <div className='flex justify-between items-center'>
-        <small><strong>{characterCount} characters entered..</strong></small>
+        <small><strong>{characterCount} {characterCount === 1 ?'character' :'characters'} entered..</strong></small>
         <Button lever={saveClick}><TfiSave /></Button>
 
         </div>

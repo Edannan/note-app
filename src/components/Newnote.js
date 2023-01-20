@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Button from './Button'
 import {TfiSave} from 'react-icons/tfi'
 
-const Newnote = ({addNote}) => {
+const Newnote = ({addNote, setMode}) => {
 
   const [notetext, setNotetext] = useState('')
   const characterCount = notetext.length;
@@ -17,7 +17,9 @@ const Newnote = ({addNote}) => {
 		if (notetext.trim().length > 0) {
 			addNote(notetext);
 			setNotetext('');
-		}
+		}else{
+    setMode(true)
+    }
   }
     
   return (

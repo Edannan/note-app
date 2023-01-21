@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Button from './Button'
 import {TfiSave} from 'react-icons/tfi'
+import { PersonContext } from '../App';
 
-const Newnote = ({addNote, setMode}) => {
-
+const Newnote = () => {
   const [notetext, setNotetext] = useState('')
   const characterCount = notetext.length;
+
+  const {noteAdd, setMode} = useContext(PersonContext);
 
   const handleChange = (event) => {
 		// if (characterLimit - event.target.value.length >= 0) {
@@ -15,7 +17,7 @@ const Newnote = ({addNote, setMode}) => {
 
   const saveClick = () => {
 		if (notetext.trim().length > 0) {
-			addNote(notetext);
+			noteAdd(notetext);
 			setNotetext('');
 		}else{
     setMode(true)

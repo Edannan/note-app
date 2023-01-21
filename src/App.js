@@ -5,7 +5,10 @@ import Notelist from './components/Notelist';
 import Footer from './components/Footer';
 import Modal from './components/Modal';
 import { nanoid } from 'nanoid'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
+
+
+export const PersonContext = createContext();
 
 function App() {
   const [searchWord, setSearchWord] = useState('');
@@ -73,15 +76,17 @@ function App() {
   }
 
   return (
+    <PersonContext.Provider value={{noteAdd, delNote, setMode}}>
     <div className='bg-white text-black dark:bg-black dark:text-white min-h-screen pb-20'>
       <Navbar />
       <Search handleSearch={setSearchWord}/>
       {mode && <Modal>Please enter text to create a note</Modal>}
       <Notelist notes={notes.filter((note) =>
 						note.text.toLowerCase().includes(searchWord.toLowerCase())
-					)} noteAdd={noteAdd} noteDel={delNote} setMode={setMode}  />
+					)}  />
       <Footer />
     </div>
+    </PersonContext.Provider>
   );
 }
 

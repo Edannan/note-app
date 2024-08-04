@@ -14,43 +14,28 @@ function App() {
   const [searchWord, setSearchWord] = useState('');
   const [mode, setMode] = useState(false);
 
-  const [notes, setNotes] = useState([{
-    id: nanoid(),
-    text: 'Today is my Dad\'s birthday!',
-    date: '05/01/2022',
-  },
-  {
-    id: nanoid(),
-    text: 'Today is my Mum\'s birthday',
-    date: '10/07/2022',
-  },
-  {
-    id: nanoid(),
-    text: 'Today is my bestfriend\'s birthday!',
-    date: '09/03/2022',
-  },
-  {
-    id: nanoid(),
-    text: 'Today is my birthday',
-    date: '12/11/2022',
-  }])
+  // Initialize state with localStorage data if available
+  const initialNotes = JSON.parse(localStorage.getItem('danso-note-app')) || [
+    { id: nanoid(), text: "Today is my Dad's birthday!", date: '05/01/2022' },
+    { id: nanoid(), text: "Today is my Mum's birthday", date: '10/07/2022' },
+    { id: nanoid(), text: "Today is my bestfriend's birthday!", date: '09/03/2022' },
+    { id: nanoid(), text: 'Today is my birthday', date: '12/11/2022' }
+  ];
 
+  const [notes, setNotes] = useState(initialNotes);
+
+  //   // Load notes from localStorage on component mount
+  //   useEffect(() => {
+  //     const savedNotes = JSON.parse(localStorage.getItem('danso-note-app'));
+  //     if (savedNotes) {
+  //         setNotes(savedNotes);
+  //     }
+  // }, []);
+
+  // Save notes to localStorage whenever notes state changes
   useEffect(() => {
-		localStorage.setItem(
-			'danso-note-app',
-			JSON.stringify(notes)
-		);
-	}, [notes]);
-
-  useEffect(() => {
-		const savedNotes = JSON.parse(
-			localStorage.getItem('danso-note-app')
-		);
-
-		if (savedNotes) {
-			setNotes(savedNotes);
-		}
-	}, []);
+      localStorage.setItem('danso-note-app', JSON.stringify(notes));
+  }, [notes]);
 
   useEffect(()=>{
     document.title = `Danso's noteApp(${notes.length})`
